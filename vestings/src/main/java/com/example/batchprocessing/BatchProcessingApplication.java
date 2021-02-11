@@ -32,6 +32,7 @@ public class BatchProcessingApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		log.info("fromDate "+arguments.getOptionValues("fromDate"));
 		String fromDate = arguments.getOptionValues("fromDate")!=null ?arguments.getOptionValues("fromDate").get(0):"20200401";
 		//ALL VESTED STOCKS : solution for phase 1
 		List<Vesting> allVestedStocks = vestingScheduleRepository.getVestingScheduleNative( Integer.valueOf(fromDate.replaceAll("-", ""))) ;
