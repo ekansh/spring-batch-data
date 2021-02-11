@@ -6,6 +6,8 @@ import java.util.StringJoiner;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
@@ -42,7 +44,7 @@ import com.example.batchprocessing.dbres.VestingSchedule;
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
-
+	private static final Logger log = LoggerFactory.getLogger(BatchConfiguration.class);
 	@Autowired
 	public JobBuilderFactory jobBuilderFactory;
 
@@ -55,6 +57,7 @@ public class BatchConfiguration {
 	// tag::readerwriterprocessor[]
 	@Bean
 	public FlatFileItemReader<VestingScheduleCSV> reader() {
+		log.info("input file = "+args.getOptionValues("inputFile"));
 		String inputFile = args.getOptionValues("inputFile")!=null ? args.getOptionValues("inputFile").get(0):"";
 		
 		CustomLineTokenizer lineTokenizer = new CustomLineTokenizer();
